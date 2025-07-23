@@ -1,41 +1,67 @@
 import React, { useState } from 'react';
 import { MapPin, Phone, Mail, Send } from 'lucide-react';
+import { ToastContainer, toast } from 'react-toastify'; // Import Toastify
+import 'react-toastify/dist/ReactToastify.css'; // Import CSS Toastify
 
 const ContactPage: React.FC = () => {
+  const WHATSAPP_NUMBER = '6282123168096';
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
   });
-  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Reset form
+  const handleWhatsAppSend = () => {
+    const { name, email, subject, message } = formData;
+
+    // --- Menggunakan toast.error untuk validasi ---
+    if (!name || !email || !subject || !message) {
+      toast.error('Oops! Sepertinya ada beberapa kolom yang belum terisi. Mohon lengkapi semua data ya sebelum mengirim pesan.', {
+        position: 'top-right', // Posisi toast
+        autoClose: 5000, // Tutup otomatis setelah 5 detik
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+
+    const whatsappMessage = `Halo, saya ${name} (${email}).\n\nSubjek: ${subject}\n\nPesan: ${message}\n\nTerima kasih.`;
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
+    window.open(whatsappUrl, '_blank');
+
+    // --- Menggunakan toast.success untuk konfirmasi ---
+    toast.success('Siap! Anda akan dialihkan ke WhatsApp untuk melanjutkan percakapan. Pastikan nomor WhatsApp Anda aktif ya!', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
+    // Opsional: Reset form setelah mengirim ke WhatsApp
     setFormData({
       name: '',
       email: '',
       subject: '',
-      message: ''
+      message: '',
     });
-    setLoading(false);
-    
-    // Show success message
-    alert('Terima kasih atas pesan Anda. Kami akan segera menghubungi Anda kembali!');
   };
 
   return (
@@ -109,7 +135,7 @@ const ContactPage: React.FC = () => {
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
-                  allowFullScreen=""
+                  allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   className="rounded-md"
@@ -120,9 +146,9 @@ const ContactPage: React.FC = () => {
 
           {/* Contact Form */}
           <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h2 className="text-xl font-semibold mb-6">Kirim Pesan</h2>
+            <h2 className="text-xl font-semibold mb-6">Kirim Pesan Melalui WhatsApp</h2>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-neutral-700 mb-1">
                   Nama Lengkap
@@ -151,23 +177,16 @@ const ContactPage: React.FC = () => {
                 <textarea id="message" name="message" rows={6} required value={formData.message} onChange={handleChange} className="input-field" placeholder="Tulis pesan Anda di sini..." />
               </div>
 
-              <button type="submit" disabled={loading} className="btn-primary w-full py-3 flex items-center justify-center">
-                {loading ? (
-                  <div className="flex items-center">
-                    <div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full mr-2"></div>
-                    Mengirim...
-                  </div>
-                ) : (
-                  <>
-                    <Send className="h-5 w-5 mr-2" />
-                    Kirim Pesan
-                  </>
-                )}
+              <button type="button" onClick={handleWhatsAppSend} className="btn-primary w-full py-3 flex items-center justify-center">
+                <Send className="h-5 w-5 mr-2" />
+                Kirim Pesan ke WhatsApp
               </button>
             </form>
           </div>
         </div>
       </div>
+      {/* Tambahkan ToastContainer di sini, biasanya di bagian paling atas atau bawah komponen utama */}
+      <ToastContainer />
     </div>
   );
 };
