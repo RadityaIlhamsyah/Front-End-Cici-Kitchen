@@ -71,7 +71,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         // Check if there's enough stock
         const newQuantity = updatedItems[existingItemIndex].quantity + quantity;
         if (newQuantity > product.inStock) {
-          toast.warning(`Sorry, only ${product.inStock} items available in stock.`);
+          toast.warning(`Maaf, hanya ${product.inStock} Barang yang tersedia di stok.`);
           updatedItems[existingItemIndex] = {
             ...updatedItems[existingItemIndex],
             quantity: product.inStock
@@ -81,17 +81,17 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
             ...updatedItems[existingItemIndex],
             quantity: newQuantity
           };
-          toast.success(`${product.name} quantity updated in cart!`);
+          toast.success(`${product.name} Jumlah barang telah diperbarui di keranjang belanja!`);
         }
       } else {
         // Add new item if product doesn't exist
         if (quantity > product.inStock) {
           quantity = product.inStock;
-          toast.warning(`Sorry, only ${product.inStock} items available in stock.`);
+          toast.warning(`Maaf, hanya ${product.inStock} Barang yang tersedia di stok.`);
         }
         
         updatedItems = [...prevCart.items, { product, quantity }];
-        toast.success(`${product.name} added to cart!`);
+        toast.success(`${product.name} ditambahkan ke keranjang belanja!`);
       }
 
       const { totalItems, totalPrice } = calculateTotals(updatedItems);
@@ -110,7 +110,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       const updatedItems = prevCart.items.filter(item => item.product._id !== productId);
       const { totalItems, totalPrice } = calculateTotals(updatedItems);
       
-      toast.info('Item removed from cart');
+      toast.info('Barang telah dihapus dari keranjang belanja');
       
       return {
         items: updatedItems,
@@ -127,7 +127,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         if (item.product._id === productId) {
           // Check if there's enough stock
           if (quantity > item.product.inStock) {
-            toast.warning(`Sorry, only ${item.product.inStock} items available in stock.`);
+            toast.warning(`Maaf, hanya ${item.product.inStock} Barang yang tersedia di stok.`);
             return { ...item, quantity: item.product.inStock };
           }
           return { ...item, quantity };
@@ -152,7 +152,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       totalItems: 0,
       totalPrice: 0
     });
-    toast.info('Cart has been cleared');
+    toast.info('Keranjang belanja telah dikosongkan');
   };
 
   return (
