@@ -84,7 +84,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       
       return user;
     } catch (error: any) {
-      const message = error.response?.data?.message || 'Login failed. Please try again.';
+      const message = error.response?.data?.message || 'Masuk gagal. Silakan coba lagi.';
       setError(message);
       toast.error(message);
       return null;
@@ -103,9 +103,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       
       localStorage.setItem('token', token);
       setAuth({ token, user });
-      toast.success('Registration successful!');
+      toast.success('Pendaftaran Berhasil!');
     } catch (error: any) {
-      const message = error.response?.data?.message || 'Registration failed. Please try again.';
+      const message = error.response?.data?.message || 'Pendaftaran gagal. Silakan coba lagi.';
       setError(message);
       toast.error(message);
     } finally {
@@ -117,7 +117,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = () => {
     localStorage.removeItem('token');
     setAuth({ user: null, token: null });
-    toast.info('You have been logged out');
+    toast.info('Anda telah keluar dari sistem.');
   };
 
   return (
