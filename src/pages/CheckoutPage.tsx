@@ -167,7 +167,6 @@ const CheckoutPage: React.FC = () => {
                     <ul className="mt-1 space-y-1">
                       <li>• COD (Bayar di Tempat): Rp5.000</li>
                       <li>• Transfer Bank: Gratis</li>
-                      <li>• QRIS: Gratis</li>
                     </ul>
                   </div>
                 </div>
