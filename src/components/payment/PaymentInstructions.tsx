@@ -25,14 +25,6 @@ const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({ selectedM
       fee: 0,
       feeText: 'Gratis Ongkir',
     },
-    {
-      id: PaymentMethod.QRIS_MANDIRI,
-      name: 'QRIS Bank Mandiri',
-      description: 'Scan QR Code untuk pembayaran',
-      icon: <Smartphone className="h-6 w-6" />,
-      fee: 0,
-      feeText: 'Gratis Ongkir',
-    },
   ];
 
   return (
