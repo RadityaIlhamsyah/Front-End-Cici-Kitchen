@@ -20,8 +20,8 @@ const PaymentInstructions: React.FC<PaymentInstructionsProps> = ({
   };
 
   const bankMandiriInfo = {
-    accountNumber: '1370-0123-456789',
-    accountName: 'CICI KITCHEN',
+    accountNumber: '1666668735',
+    accountName: 'Fayza Vincy Adisty',
     bankCode: '008'
   };
 
