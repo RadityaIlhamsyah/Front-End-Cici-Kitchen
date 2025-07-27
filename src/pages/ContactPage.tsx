@@ -94,7 +94,7 @@ const ContactPage: React.FC = () => {
                   <Phone className="h-6 w-6 text-primary-500 mt-1 mr-4 flex-shrink-0" />
                   <div>
                     <h3 className="font-medium mb-1">Telepon Kami</h3>
-                    <p className="text-neutral-600">+62 812 3456 7890</p>
+                    <p className="text-neutral-600">+62 821 2316 8096</p>
                   </div>
                 </div>
 
